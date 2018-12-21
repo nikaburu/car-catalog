@@ -5,13 +5,13 @@ stages:
   - test
 
 variables:
-  project: "car-catalog"
+  project: "/builds/nikaburu/car-catalog"
   project_file: "CarCatalog.csproj"
 
 build:
   stage: build
   variables:
-    build_path: "/src"
+    build_path: "$project/src"
   script:
     - "cd"
     - "dir"
@@ -21,7 +21,7 @@ build:
 test:
   stage: test
   variables:
-    test_path: "/test"
+    test_path: "$project/test"
   script:
     - "cd $test_path"
     - "dotnet test"
