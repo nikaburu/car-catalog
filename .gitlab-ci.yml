@@ -8,10 +8,6 @@ variables:
   project: "car-catalog"
   project_file: "CarCatalog.csproj"
 
-before_script:
-  - "dir"
-  - "dotnet restore"
-
 build:
   stage: build
   variables:
