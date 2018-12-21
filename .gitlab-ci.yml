@@ -13,6 +13,8 @@ build:
   variables:
     build_path: "/src"
   script:
+    - "cd"
+    - "dir"
     - "cd $build_path"
     - "dotnet build"
 
