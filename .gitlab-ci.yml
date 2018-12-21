@@ -11,7 +11,7 @@ variables:
 build:
   stage: build
   variables:
-    build_path: "$project/src/$project_file"
+    build_path: "/src"
   script:
     - "cd $build_path"
     - "dotnet build"
@@ -19,7 +19,7 @@ build:
 test:
   stage: test
   variables:
-    test_path: "$project/test/$project.Tests"
+    test_path: "/test"
   script:
     - "cd $test_path"
     - "dotnet test"
