@@ -5,15 +5,15 @@ services:
 
 variables:
   DOCKER_DRIVER: overlay
-  CONTAINER_TEST_IMAGE: registry.gitlab.com/nikaburu/car-catalog:$CI_BUILD_REF_NAME  
-  CONTAINER_RELEASE_IMAGE: registry.gitlab.com/nikaburu/car-catalog:latest
+  CONTAINER_TEST_IMAGE: $CI_REGISTRY/nikaburu/car-catalog:$CI_BUILD_REF_NAME  
+  CONTAINER_RELEASE_IMAGE: $CI_REGISTRY/nikaburu/car-catalog:latest
 
 stages:
 - build
 - release
 
 before_script:
-  - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+  - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
 
 build:
   stage: build
