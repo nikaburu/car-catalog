@@ -1,11 +1,24 @@
-FROM microsoft/dotnet:2.1-sdk
-WORKDIR /src
+FROM microsoft/dotnet:2.2-sdk AS build
+WORKDIR /app
 
 # copy csproj and restore as distinct layers
-COPY *.csproj ./
+COPY src/*.csproj ./car-catalog/
+WORKDIR /app/car-catalog
 RUN dotnet restore
 
-# copy and build everything else
-COPY . ./
+# copy and publish app and libraries
+WORKDIR /app/
+COPY src/. ./car-catalog/
+WORKDIR /app/car-catalog
 RUN dotnet publish -c Release -o out
-ENTRYPOINT ["dotnet", "out/CarCatalog.dll"]
+
+# test application -- see: dotnet-docker-unit-testing.md
+#FROM build AS testrunner
+#WORKDIR /app/tests
+#COPY tests/. .
+#ENTRYPOINT ["dotnet", "test", "--logger:trx"]
+
+FROM microsoft/dotnet:2.2-runtime AS runtime
+WORKDIR /app
+COPY --from=build /app/dotnetapp/out ./
+ENTRYPOINT ["dotnet", "dotnetapp.dll"]
