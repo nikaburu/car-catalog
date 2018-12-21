@@ -1,27 +1,16 @@
-image: microsoft/dotnet:latest
-
-stages:
-  - build
-  - test
+image: docker:latest
 
 variables:
-  project: "/builds/nikaburu/car-catalog"
-  project_file: "CarCatalog.csproj"
+  DOCKER_DRIVER: overlay
+  CONTAINER_TEST_IMAGE: nikaburu/car-catalog:$CI_BUILD_REF_NAME
+
+services:
+- docker:dind
+
+stages:
+- build
 
 build:
   stage: build
-  variables:
-    build_path: "$project/src"
   script:
-    - "cd"
-    - "dir"
-    - "cd $build_path"
-    - "dotnet build"
-
-#test:
-#  stage: test
-#  variables:
-#    test_path: "$project/test"
-#  script:
-#    - "cd $test_path"
-#    - "dotnet test"
+  - docker build -t $CONTAINER_TEST_IMAGE .
