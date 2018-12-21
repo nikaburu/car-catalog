@@ -18,10 +18,10 @@ build:
     - "cd $build_path"
     - "dotnet build"
 
-test:
-  stage: test
-  variables:
-    test_path: "$project/test"
-  script:
-    - "cd $test_path"
-    - "dotnet test"
+#test:
+#  stage: test
+#  variables:
+#    test_path: "$project/test"
+#  script:
+#    - "cd $test_path"
+#    - "dotnet test"
